@@ -5,7 +5,7 @@ package ejercicio02;
  */
 public class Hora {
 	/**
-	 * Variable para guardar la 
+	 * Variable para guardar la
 	 */
 	protected int hora;
 	protected int minuto;
@@ -14,12 +14,18 @@ public class Hora {
 		super();
 	}
 
-	public Hora(int hora, int minuto) {
+	public Hora(int hora, int minuto) throws NegativeHourException, NegativeMinuteException {
 		super();
-		if (hora >= 0 && hora <= 23)
+		if (hora >= 0) {
 			this.hora = hora;
-		if (minuto >= 0 && minuto <= 60)
+		} else {
+			throw new NegativeHourException();
+		}
+		if (minuto >= 0) {
 			this.minuto = minuto;
+		} else {
+			throw new NegativeMinuteException();
+		}
 	}
 
 	public void inc() {
@@ -30,42 +36,40 @@ public class Hora {
 		}
 	}
 
-	public boolean setMinutos(int minutosNuevos) {
-		boolean cambiado = false;
-
-		if (minutosNuevos >= 0 && minutosNuevos <= 60) {
-			this.minuto = minutosNuevos;
-			cambiado = true;
+	public void setMinutos(int minuto) throws NegativeMinuteException {
+		if (minuto >= 0) {
+			this.minuto = minuto;
+		} else {
+			throw new NegativeMinuteException();
 		}
-		return cambiado;
 	}
 
-	public boolean setHora(int horasNuevas) {
-		boolean cambiado = false;
+	public void setHora(int hora) throws NegativeHourException {
 
-		if (horasNuevas >= 0 && horasNuevas <= 23) {
-			this.hora = horasNuevas;
-			cambiado = true;
+		if (hora >= 0) {
+			this.hora = hora;
+		} else {
+			throw new NegativeHourException();
 		}
-		return cambiado;
+
 	}
 
 	@Override
 	public String toString() {
-		String res="";
-		
-		if (hora<10) {
-			res+="0";
+		String res = "";
+
+		if (hora < 10) {
+			res += "0";
 		}
-		
+
 		res += hora;
-		
-		if (minuto<10) {
-			res+="0";
+
+		if (minuto < 10) {
+			res += "0";
 		}
-		
+
 		res += ":" + minuto;
-		
+
 		return res;
 	}
 

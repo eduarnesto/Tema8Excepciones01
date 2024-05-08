@@ -1,25 +1,27 @@
 package ejercicio02;
 
-/**
- * 
- */
 public class HoraExacta extends Hora {
 	private int segundo;
 
-	public HoraExacta(int hora, int minuto, int segundo) {
+	public HoraExacta(int hora, int minuto, int segundo)
+			throws NegativeHourException, NegativeMinuteException, NegativeSecondException {
 		super(hora, minuto);
-		if (segundo >= 0 && segundo < 60)
+		if (segundo >= 0) {
 			this.segundo = segundo;
+		} else {
+			throw new NegativeSecondException();
+		}
 	}
 
-	public boolean setSegundos(int segundosNuevos) {
-		boolean cambiado = false;
+	public HoraExacta() {
+	}
 
-		if (segundosNuevos >= 0 && segundosNuevos <= 60) {
-			this.segundo = segundosNuevos;
-			cambiado = true;
+	public void setSegundos(int segundo) throws NegativeSecondException {
+		if (segundo >= 0) {
+			this.segundo = segundo;
+		} else {
+			throw new NegativeSecondException();
 		}
-		return cambiado;
 	}
 
 	public void inc() {
@@ -35,7 +37,7 @@ public class HoraExacta extends Hora {
 		String res = "";
 
 		res += super.toString();
-		
+
 		if (segundo < 10) {
 			res += "0";
 		}
